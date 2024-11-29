@@ -69,8 +69,8 @@ static uint16_t auto_pointer_layer_timer = 0;
 
 /** Convenience row shorthands. */
 #define _______________DEAD_HALF_ROW_______________ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
-#define ______________HOME_ROW_GACS_L______________ KC_LGUI, KC_LALT, KC_LCTL, XXXXXXX, XXXXXXX
-#define ______________HOME_ROW_GACS_R______________ XXXXXXX, XXXXXXX, KC_LCTL, KC_LALT, KC_LGUI
+#define ______________HOME_ROW_GACS_L______________ KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, XXXXXXX
+#define ______________HOME_ROW_GACS_R______________ XXXXXXX, KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI
 
 /*
  * Layers used on the Dilemma.
@@ -92,7 +92,7 @@ static uint16_t auto_pointer_layer_timer = 0;
  */
 #define LAYOUT_LAYER_FUNCTION                                                                 \
     _______________DEAD_HALF_ROW_______________, KC_PSCR,   KC_F7,   KC_F8,   KC_F9,  KC_F12, \
-    ______________HOME_ROW_GACS_L______________, KC_SCRL,   KC_F4,   KC_F5,   KC_F6,  KC_F11, \
+    ______________HOME_ROW_GACS_L______________, KC_CAPS,   KC_F4,   KC_F5,   KC_F6,  KC_F11, \
     _______________DEAD_HALF_ROW_______________, KC_PAUS,   KC_F1,   KC_F2,   KC_F3,  KC_F10, \
                                _______, XXXXXXX, XXXXXXX, XXXXXXX
 
@@ -111,14 +111,12 @@ static uint16_t auto_pointer_layer_timer = 0;
  * caps lock and insert on the inner column. Thumb keys are duplicated from the
  * base layer to avoid having to layer change mid edit and to enable auto-repeat.
  */
-#define LAYOUT_LAYER_NAVIGATION                                                               \
-    _______________DEAD_HALF_ROW_______________, _______________DEAD_HALF_ROW_______________, \
-    ______________HOME_ROW_GACS_L______________, KC_CAPS, KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT, \
-    _______________DEAD_HALF_ROW_______________,  KC_INS, KC_HOME, KC_PGDN, KC_PGUP,  KC_END, \
-                               XXXXXXX, _______,  KC_ENT, KC_BSPC
-
-/**
- * \brief Numeral layout.
+#define LAYOUT_LAYER_NAVIGATION                                                                \
+    _______________DEAD_HALF_ROW_______________, _______________DEAD_HALF_ROW_______________,  \
+    ______________HOME_ROW_GACS_L______________, KC_LEFT, KC_UP,  KC_DOWN,   KC_RGHT, XXXXXXX, \
+    _______________DEAD_HALF_ROW_______________, KC_INS,  KC_HOME,  KC_PGDN, KC_PGUP,  KC_END, \
+                              XXXXXXX, _______,  KC_ENT, KC_BSPC
+/** \brief Numeral layout.
 
  * Primary left-hand layer (right home thumb) is numerals and symbols. Numerals
  * are in the standard numpad locations with symbols in the remaining positions.
