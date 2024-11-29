@@ -47,7 +47,7 @@ static uint16_t auto_pointer_layer_timer = 0;
 #endif     // DILEMMA_AUTO_POINTER_LAYER_TRIGGER_ENABLE
 
 #define SPC_NAV LT(LAYER_NAVIGATION, KC_SPC)
-#define TAB_FUN LT(LAYER_FUNCTION, KC_TAB)
+#define TAB_SFT LSFT_T(KC_TAB)
 #define ENT_SYM LT(LAYER_SYMBOLS, KC_ENT)
 #define BSP_NUM LT(LAYER_NUMERAL, KC_BSPC)
 #define _L_PTR(KC) LT(LAYER_POINTER, KC)
@@ -65,12 +65,12 @@ static uint16_t auto_pointer_layer_timer = 0;
        KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, \
        KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L, KC_QUOT, \
        KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, \
-                               TAB_FUN, SPC_NAV, ENT_SYM, BSP_NUM
+                               TAB_SFT, SPC_NAV, ENT_SYM, BSP_NUM
 
 /** Convenience row shorthands. */
 #define _______________DEAD_HALF_ROW_______________ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
-#define ______________HOME_ROW_GACS_L______________ KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, XXXXXXX
-#define ______________HOME_ROW_GACS_R______________ XXXXXXX, KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI
+#define ______________HOME_ROW_GACS_L______________ KC_LGUI, KC_LALT, KC_LCTL, XXXXXXX, XXXXXXX
+#define ______________HOME_ROW_GACS_R______________ XXXXXXX, XXXXXXX, KC_LCTL, KC_LALT, KC_LGUI
 
 /*
  * Layers used on the Dilemma.
@@ -179,8 +179,8 @@ static uint16_t auto_pointer_layer_timer = 0;
     ...)                                                               \
              L00,         L01,         L02,         L03,         L04,  \
              R05,         R06,         R07,         R08,         R09,  \
-      LGUI_T(L10), LALT_T(L11), LCTL_T(L12), LSFT_T(L13),        L14,  \
-             R15,  RSFT_T(R16), RCTL_T(R17), LALT_T(R18), RGUI_T(R19), \
+      LGUI_T(L10), LALT_T(L11), LCTL_T(L12),        L13,         L14,  \
+             R15,          R16, RCTL_T(R17), LALT_T(R18), RGUI_T(R19), \
       __VA_ARGS__
 #define HOME_ROW_MOD_GACS(...) _HOME_ROW_MOD_GACS(__VA_ARGS__)
 
@@ -224,11 +224,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 const uint16_t PROGMEM esc_combo[] = {SPC_NAV, ENT_SYM, COMBO_END};
-const uint16_t PROGMEM medial_combo[] = {TAB_FUN, SPC_NAV, COMBO_END};
+const uint16_t PROGMEM fun_combo[] = {TAB_SFT, BSP_NUM, COMBO_END};
+const uint16_t PROGMEM medial_combo[] = {TAB_SFT, SPC_NAV, COMBO_END};
 const uint16_t PROGMEM systeml_combo[] = {ENT_SYM, BSP_NUM, COMBO_END};
 
 combo_t key_combos[] = {
     COMBO(esc_combo, KC_ESC),
+    COMBO(fun_combo, MO(LAYER_FUNCTION)),
     COMBO(medial_combo, MO(LAYER_MEDIA)),
     COMBO(systeml_combo, MO(LAYER_SYSTEM)),
 };
