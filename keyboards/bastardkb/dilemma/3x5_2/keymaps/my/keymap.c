@@ -28,7 +28,8 @@ enum dilemma_keymap_layers {
     LAYER_NUMERAL,
     LAYER_SYMBOLS,
     LAYER_MEDIA,
-    LAYER_SYSTEM
+    LAYER_SYSTEM,
+    LAYER_GAME
 };
 
 // Automatically enable sniping-mode on the pointer layer.
@@ -47,9 +48,10 @@ static uint16_t auto_pointer_layer_timer = 0;
 #endif     // DILEMMA_AUTO_POINTER_LAYER_TRIGGER_ENABLE
 
 #define SPC_NAV LT(LAYER_NAVIGATION, KC_SPC)
-#define TAB_SFT LSFT_T(KC_TAB)
 #define ENT_SYM LT(LAYER_SYMBOLS, KC_ENT)
 #define BSP_NUM LT(LAYER_NUMERAL, KC_BSPC)
+#define GAME_TG TG(LAYER_GAME)
+#define TAB_SFT LSFT_T(KC_TAB)
 #define _L_PTR(KC) LT(LAYER_POINTER, KC)
 
 #ifndef POINTING_DEVICE_ENABLE
@@ -94,7 +96,7 @@ static uint16_t auto_pointer_layer_timer = 0;
     _______________DEAD_HALF_ROW_______________, KC_PSCR,   KC_F7,   KC_F8,   KC_F9,  KC_F12, \
     ______________HOME_ROW_GACS_L______________, KC_CAPS,   KC_F4,   KC_F5,   KC_F6,  KC_F11, \
     _______________DEAD_HALF_ROW_______________, KC_PAUS,   KC_F1,   KC_F2,   KC_F3,  KC_F10, \
-                               _______, XXXXXXX, XXXXXXX, XXXXXXX
+                               _______, XXXXXXX, XXXXXXX, _______
 
 /** \brief Mouse emulation and pointer functions. */
 #define LAYOUT_LAYER_POINTER                                                                  \
@@ -146,9 +148,9 @@ static uint16_t auto_pointer_layer_timer = 0;
  *
  */
 #define LAYOUT_LAYER_MEDIA                                                                    \
-    _______________DEAD_HALF_ROW_______________, _______________DEAD_HALF_ROW_______________, \
+    _______________DEAD_HALF_ROW_______________, GAME_TG, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, \
     ______________HOME_ROW_GACS_L______________, XXXXXXX, KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT, \
-    _______________DEAD_HALF_ROW_______________, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, \
+    _______________DEAD_HALF_ROW_______________, _______________DEAD_HALF_ROW_______________, \
                                _______, _______,  KC_MPLY, KC_MUTE
 
 
@@ -159,8 +161,17 @@ static uint16_t auto_pointer_layer_timer = 0;
 #define LAYOUT_LAYER_SYSTEM                                                                   \
     _______________DEAD_HALF_ROW_______________, XXXXXXX, XXXXXXX, XXXXXXX, EE_CLR, QK_BOOT , \
     _______________DEAD_HALF_ROW_______________, ______________HOME_ROW_GACS_R______________, \
-    KC_BRID, KC_BRIU, XXXXXXX, KC_SLEP, KC_WAKE, _______________DEAD_HALF_ROW_______________, \
+   KC_BRID, KC_BRIU, XXXXXXX, KC_SLEP, KC_WAKE, _______________DEAD_HALF_ROW_______________, \
                                KC_WBAK, KC_WFWD, _______, _______
+
+
+
+#define LAYOUT_LAYER_GAME                                                         \
+   KC_TAB,  KC_Q, KC_W, KC_E, KC_R, KC_BTN1, KC_BTN2, KC_W,    KC_MNXT, KC_VOLU , \
+   KC_LSFT, KC_A, KC_S, KC_D, KC_F, KC_TAB,  KC_Q,    KC_BTN3, KC_MPLY, KC_MUTE , \
+   KC_LCTL, KC_Z, KC_X, KC_C, KC_V, KC_TAB,  KC_Q,    KC_W,    KC_MPRV, KC_VOLD , \
+                    KC_ESC, KC_SPC, GAME_TG, _______
+
 /**
  * \brief Add Home Row mod to a layout.
  *
@@ -177,8 +188,8 @@ static uint16_t auto_pointer_layer_timer = 0;
     ...)                                                               \
              L00,         L01,         L02,         L03,         L04,  \
              R05,         R06,         R07,         R08,         R09,  \
-      LGUI_T(L10), LALT_T(L11), LCTL_T(L12),        L13,         L14,  \
-             R15,          R16, RCTL_T(R17), LALT_T(R18), RGUI_T(R19), \
+      LGUI_T(L10), LALT_T(L11), LCTL_T(L12), LSFT_T(L13),         L14,  \
+             R15,          LSFT_T(R16), RCTL_T(R17), LALT_T(R18), RGUI_T(R19), \
       __VA_ARGS__
 #define HOME_ROW_MOD_GACS(...) _HOME_ROW_MOD_GACS(__VA_ARGS__)
 
@@ -219,6 +230,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [LAYER_SYMBOLS] = LAYOUT_wrapper(LAYOUT_LAYER_SYMBOLS),
   [LAYER_MEDIA] = LAYOUT_wrapper(LAYOUT_LAYER_MEDIA),
   [LAYER_SYSTEM] = LAYOUT_wrapper(LAYOUT_LAYER_SYSTEM),
+  [LAYER_GAME] = LAYOUT_wrapper(LAYOUT_LAYER_GAME)
 };
 
 const uint16_t PROGMEM esc_combo[] = {SPC_NAV, ENT_SYM, COMBO_END};
