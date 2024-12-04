@@ -26,13 +26,13 @@ enum dilemma_keymap_layers {
     LAYER_GERMAN,
     LAYER_FUNCTION,
     LAYER_NAVIGATION,
-    LAYER_POINTER,
     LAYER_NUMERAL,
     LAYER_SYMBOLS,
     LAYER_MEDIA,
     LAYER_SYSTEM,
     LAYER_GAME,
-    LAYER_BROWSE
+    LAYER_BROWSE,
+    LAYER_POINTER,
 };
 
 enum tap_dances {
@@ -87,7 +87,7 @@ static uint16_t auto_pointer_layer_timer = 0;
 #define LAYOUT_LAYER_GERMAN                                                                                            \
        KC_Q,        KC_W,        KC_E,    KC_R,    KC_T,    DE_Y,    TD(TD_U_UE), TD(TD_I_AE), TD(TD_O_OE),   KC_P   , \
        KC_A,        KC_S,        KC_D,    KC_F,    KC_G,    KC_H,    KC_J,        KC_K,        KC_L,          KC_2   , \
-       DE_Z,        KC_X,        KC_C,    KC_V,    KC_B,    KC_N,    KC_M,        DE_COMM,     TD(TD_DOT_SS), KC_7   , \
+       DE_Z,        KC_X,        KC_C,    KC_V,    KC_B,    KC_N,    KC_M,        DE_COMM,     TD(TD_DOT_SS), DE_SLSH, \
                                        TAB_SFT, SPC_NAV,    ENT_SYM, BSP_NUM
 
 #define _______________DEAD_HALF_ROW_______________ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
@@ -106,7 +106,7 @@ static uint16_t auto_pointer_layer_timer = 0;
     _______, DRGSCRL, SNIPING, KC_BTN3, XXXXXXX, XXXXXXX, KC_BTN3, SNIPING, DRGSCRL, _______, \
                                KC_BTN2, KC_BTN1, KC_BTN1, KC_BTN2
 #define LAYOUT_LAYER_NAVIGATION                                                               \
-    _______________DEAD_HALF_ROW_______________, KC_LBRC, KC_LCBR, KC_RCBR, KC_LPRN, KC_RPRN, \
+    _______________DEAD_HALF_ROW_______________, KC_LBRC, KC_LCBR, KC_LPRN, KC_RPRN, KC_RCBR, \
     ______________HOME_ROW_GACS_L______________, KC_LEFT, KC_UP,   KC_DOWN, KC_RGHT, KC_RBRC, \
     _______________DEAD_HALF_ROW_______________, KC_INS,  KC_HOME, KC_PGDN, KC_PGUP, KC_END,  \
                                XXXXXXX, _______, KC_ENT,  KC_BSPC
@@ -143,12 +143,15 @@ static uint16_t auto_pointer_layer_timer = 0;
 
 #define TAB_FWD LCTL(KC_TAB)
 #define TAB_BAK LSFT(TAB_FWD)
+#define WZOOM_P LCTL(KC_PLUS)
+#define WZOOM_M LCTL(KC_MINS)
+#define WCLOSE  LCTL(KC_W)
 
-#define LAYOUT_LAYER_BROWSING                                                                               \
-    KC_1,    KC_2,    KC_3,    KC_4,             KC_5,   KC_BTN1, KC_BTN2, XXXXXXX, XXXXXXX, TD(TD_PANIC) , \
-    KC_BTN1, KC_BTN2, KC_UP,   TD(TD_F_GUIF), KC_WBAK,   KC_WFWD, XXXXXXX, KC_BTN3, TAB_BAK, TAB_FWD      , \
-    XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT,        KC_ESC,   KC_MPLY, KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT      , \
-                                       KC_TAB, KC_SPC,   KC_ENT, BRWS_TG
+#define LAYOUT_LAYER_BROWSING                                                                              \
+    KC_1,    KC_2,    KC_3,    KC_4,             KC_5,   KC_BTN1, KC_BTN2, WZOOM_M, WZOOM_P, TD(TD_PANIC), \
+    XXXXXXX, XXXXXXX, KC_UP,   TD(TD_F_GUIF), KC_WBAK,   KC_WFWD, WCLOSE,  KC_BTN3, TAB_BAK, TAB_FWD     , \
+    XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT,        KC_ESC,   KC_MPLY, KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT     , \
+                                                 KC_TAB, KC_SPC,   KC_ENT, BRWS_TG
 
 
 #define _HOME_ROW_MOD_GACS(                                            \
@@ -157,7 +160,7 @@ static uint16_t auto_pointer_layer_timer = 0;
     ...)                                                               \
              L00,         L01,         L02,         L03,         L04,  \
              R05,         R06,         R07,         R08,         R09,  \
-      LGUI_T(L10), LALT_T(L11), LCTL_T(L12), LSFT_T(L13),         L14,  \
+      LGUI_T(L10), LALT_T(L11), LCTL_T(L12), LSFT_T(L13),         L14, \
              R15,          LSFT_T(R16), RCTL_T(R17), LALT_T(R18), RGUI_T(R19), \
       __VA_ARGS__
 #define HOME_ROW_MOD_GACS(...) _HOME_ROW_MOD_GACS(__VA_ARGS__)
@@ -172,7 +175,7 @@ static uint16_t auto_pointer_layer_timer = 0;
              L10,         L11,         L12,         L13,         L14,  \
              R15,         R16,         R17,         R18,         R19,  \
       _L_PTR(L20),        L21,         L22,         L23,         L24,  \
-             R25,         R26,         R27,         R28,  _L_PTR(R29), \
+             R25,         R26,         R27,         R28,         R29,  \
       __VA_ARGS__
 #define POINTER_MOD(...) _POINTER_MOD(__VA_ARGS__)
 
@@ -193,7 +196,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [LAYER_MEDIA] = LAYOUT_wrapper(LAYOUT_LAYER_MEDIA),
   [LAYER_SYSTEM] = LAYOUT_wrapper(LAYOUT_LAYER_SYSTEM),
   [LAYER_GAME] = LAYOUT_wrapper(LAYOUT_LAYER_GAME),
-  [LAYER_BROWSE] = LAYOUT_wrapper(POINTER_MOD(LAYOUT_LAYER_BROWSING))
+  [LAYER_BROWSE] = LAYOUT_wrapper(POINTER_MOD(LAYOUT_LAYER_BROWSING)),
 };
 
 const uint16_t PROGMEM esc_combo[] = {SPC_NAV, ENT_SYM, COMBO_END};
